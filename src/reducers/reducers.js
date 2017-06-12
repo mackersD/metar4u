@@ -1,7 +1,10 @@
 import {
   REQUEST_WEATHER,
   REQUEST_WEATHER_SUCCESS,
-  REQUEST_WEATHER_FAILURE} from '../util/constants'
+  REQUEST_WEATHER_FAILURE,
+  REQUEST_GEOLOCATION,
+  REQUEST_GEOLOCATION_SUCCESS,
+  REQUEST_GEOLOCATION_FAILURE} from '../util/constants'
 
 const initialState = {
   lat: 0.0,
@@ -25,6 +28,13 @@ const rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetching: false
       })
+    case REQUEST_GEOLOCATION_SUCCESS:
+      return Object.assign({}, state, {
+        lat: action.lat,
+        long: action.long
+      })
+    case REQUEST_GEOLOCATION:
+    case REQUEST_GEOLOCATION_FAILURE:
     default:
       return state
   }
