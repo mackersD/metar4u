@@ -1,62 +1,58 @@
-import {
-  REQUEST_WEATHER,
-  REQUEST_WEATHER_SUCCESS,
-  REQUEST_WEATHER_FAILURE,
-  REQUEST_GEOLOCATION,
-  REQUEST_GEOLOCATION_SUCCESS,
-  REQUEST_GEOLOCATION_FAILURE
-} from '../util/constants'
+import * as ACTION from '../util/constants'
 import fetch from 'isomorphic-fetch'
-
-function requestWeather() {
+function requestMetar(icao) {
   return {
-    type: REQUEST_WEATHER
+    type: ACTION.REQUEST_METAR,
+    icao
   }
 }
 
-function requestWeatherSuccess(data) {
+function requestMetarSuccess(icao, data) {
   return {
-    type: REQUEST_WEATHER_SUCCESS,
+    type: ACTION.REQUEST_METAR_SUCCESS,
+    updatedAt: Date.now(),
+    icao,
     data
   }
 }
 
-function requestWeatherFailure(err) {
+function requestMetarFailure(icao, error) {
   return {
-    type: REQUEST_WEATHER_FAILURE,
-    err
+    type: ACTION.REQUEST_METAR_FAILURE,
+    icao,
+    error
   }
 }
 
-function fetchWeather() {
+function fetchMetar(icao) {
   return dispatch => {
-    dispatch(requestWeather())
-    return fetch('https://avwx.rest/api/metar/KGTU')
+    dispatch(requestMetar(icao))
+    return fetch('https://avwx.rest/api/metar/' + icao)
       .then(response => {
-        if(!response || response.status !== 200) {
-          dispatch(requestWeatherFailure("Failed to get Weather"))
+        if(!response || !response.ok) {
+          dispatch(requestMetarFailure(icao, "Failed to get METAR"))
         }
         return response.json()
       })
-      .then(json => dispatch(requestWeatherSuccess(json)))
-  }
-}
-
-export function fetchWeatherIfNeeded() {
-  return (dispatch, getState) => {
-    return dispatch(fetchWeather())
+      .then(json => {
+        if(json.Error) {
+          dispatch(requestMetarFailure(icao, json.Error))
+        } else {
+          dispatch(requestMetarSuccess(icao, json))
+        }
+      })
   }
 }
 
 export function requestGeolocation() {
   return {
-    type: REQUEST_GEOLOCATION
+    type: ACTION.REQUEST_GEOLOCATION
   }
 }
 
 export function requestGeolocationSuccess(position) {
   return {
-    type: REQUEST_GEOLOCATION_SUCCESS,
+    type: ACTION.REQUEST_GEOLOCATION_SUCCESS,
     lat: position.coords.latitude,
     long: position.coords.longitude
   }
@@ -64,17 +60,21 @@ export function requestGeolocationSuccess(position) {
 
 export function requestGeolocationFailure(err) {
   return {
-    type: REQUEST_GEOLOCATION_FAILURE,
+    type: ACTION.REQUEST_GEOLOCATION_FAILURE,
     err
   }
 }
 
-export function fetchGeolocation() {
-  return dispatch => {
+export function bootstrapLocationAndMetars() {
+  return (dispatch, getState) => {
     dispatch(requestGeolocation())
     if(navigator.geolocation) {
       return navigator.geolocation.getCurrentPosition(pos => {
          dispatch(requestGeolocationSuccess(pos))
+         var { location } = getState()
+         for(var i = 0; i < 20; i++) {
+           dispatch(fetchMetar(location.nearestStations[i].icao))
+         }
       })
     } else {
       dispatch(requestGeolocationFailure("Geolocation not supported"))

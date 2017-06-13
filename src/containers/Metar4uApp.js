@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import MetarList from '../components/MetarList'
-import { fetchWeatherIfNeeded, fetchGeolocation } from '../actions/actions'
+import { bootstrapLocationAndMetars } from '../actions/actions'
 
 class Metar4uApp extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(fetchWeatherIfNeeded())
-    dispatch(fetchGeolocation())
+    dispatch(bootstrapLocationAndMetars())
   }
 
   render() {
