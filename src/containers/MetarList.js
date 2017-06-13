@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 const MetarList = ({metars}) => (
   <ul>
     {metars.map((metar) => {
-      console.log(metar.icao)
       return (
         <Metar
           key={metar.icao}
