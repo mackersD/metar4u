@@ -27,7 +27,7 @@ function requestMetarFailure(icao, error) {
 function fetchMetar(icao) {
   return dispatch => {
     dispatch(requestMetar(icao))
-    return fetch('https://avwx.rest/api/metar/' + icao)
+    return fetch('http://avwx.rest/api/metar/' + icao)
       .then(response => {
         if(!response || !response.ok) {
           dispatch(requestMetarFailure(icao, "Failed to get METAR"))
