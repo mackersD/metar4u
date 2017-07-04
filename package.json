@@ -15,12 +15,13 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
+    "jest": "^20.0.4",
     "react-scripts": "1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject"
   }
 }
