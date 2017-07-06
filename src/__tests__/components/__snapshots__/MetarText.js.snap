@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MetarText - expected rendering 1`] = `
+<div>
+  KGTU
+</div>
+`;
