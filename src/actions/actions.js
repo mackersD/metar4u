@@ -1,5 +1,7 @@
 import * as ACTION from '../util/constants'
 import fetch from 'isomorphic-fetch'
+import { getNearestStations } from '../util/stations'
+
 function requestMetar(icao) {
   return {
     type: ACTION.REQUEST_METAR,
@@ -10,17 +12,27 @@ function requestMetar(icao) {
 function requestMetarSuccess(icao, data) {
   return {
     type: ACTION.REQUEST_METAR_SUCCESS,
-    updatedAt: Date.now(),
+    data,
     icao,
-    data
+    updatedAt: Date.now()
   }
 }
 
 function requestMetarFailure(icao, error) {
   return {
     type: ACTION.REQUEST_METAR_FAILURE,
+    error,
     icao,
-    error
+    updatedAt: Date.now()
+  }
+}
+
+function addMetar(options) {
+  return {
+    type: ACTION.ADD_METAR,
+    icao: options.icao,
+    distance: options.distance,
+    bearing: options.bearing
   }
 }
 
@@ -50,11 +62,11 @@ export function requestGeolocation() {
   }
 }
 
-export function requestGeolocationSuccess(position) {
+export function requestGeolocationSuccess(lat, long) {
   return {
     type: ACTION.REQUEST_GEOLOCATION_SUCCESS,
-    lat: position.coords.latitude,
-    long: position.coords.longitude
+    lat,
+    long
   }
 }
 
@@ -70,10 +82,13 @@ export function bootstrapLocationAndMetars() {
     dispatch(requestGeolocation())
     if(navigator.geolocation) {
       return navigator.geolocation.getCurrentPosition(pos => {
-         dispatch(requestGeolocationSuccess(pos))
-         var { location } = getState()
+        var lat = pos.coords.latitude
+        var long = pos.coords.longitude
+         dispatch(requestGeolocationSuccess(lat, long))
+         var stations = getNearestStations(lat, long)
          for(var i = 0; i < 20; i++) {
-           dispatch(fetchMetar(location.nearestStations[i].icao))
+           dispatch(addMetar(stations[i]))
+           dispatch(fetchMetar(stations[i].icao))
          }
       })
     } else {

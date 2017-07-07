@@ -2,17 +2,16 @@ import React from 'react'
 import Metar from '../components/Metar'
 import { connect } from 'react-redux'
 
-const MetarList = ({metars, locations}) => {
+const MetarList = (props) => {
   return (
     <div>
-      {metars.map((metar) => {
-        var station = locations.find((loc) => loc.icao === metar.icao)
+      {props.metars.map((metar) => {
         return (
           <Metar
             key={metar.icao}
-            distance={station.statuteMiles}
-            direction={station.bearing}
-            report={metar['Raw-Report']}
+            distance={metar.distance}
+            direction={metar.bearing}
+            rawReport={metar.rawReport}
             error={metar.error}
             isFetching={metar.isFetching}
           />
@@ -24,8 +23,7 @@ const MetarList = ({metars, locations}) => {
 
 const mapStateToProps = state => {
   return {
-    metars: state.metars,
-    locations: state.location.nearestStations
+    metars: state.metars
   }
 }
 

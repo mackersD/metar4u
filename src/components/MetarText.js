@@ -1,9 +1,9 @@
 import React from 'react'
 
-const MetarText = ({text}) => {
+const MetarText = (props) => {
   return (
     <div>
-      {text}
+      {props.text}
     </div>
   )
 }
