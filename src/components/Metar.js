@@ -1,22 +1,20 @@
 import React from 'react'
 import Vector from './Vector'
 import MetarText from './MetarText'
+import Spinner from './Spinner'
 
-const Metar = ({distance, direction, report, isFetching, error}) => {
-  const styles = {
-    display: "flex",
-    "flexDirection": "row",
-    "alignItems": "center"
-  }
+const Metar = (props) => {
   return (
-    <div style={styles}>
-      <Vector
-        distance={distance}
-        direction={direction}
-      />
-      <MetarText
-        text={report}
-      />
+    <div>
+      <Spinner isFetching={props.isFetching}>
+        <Vector
+          distance={props.distance}
+          direction={props.direction}
+        />
+        <MetarText
+          text={props.rawReport}
+        />
+      </Spinner>
     </div>
   )
 }

@@ -3,11 +3,11 @@ export function getNearestStations(lat, long) {
   var stationDist = stations.map((station) => {
     return {
       "icao": station.icao,
-      "statuteMiles": distanceBetweenCoordinates(station.lat, station.long, lat, long),
+      "distance": distanceBetweenCoordinates(station.lat, station.long, lat, long),
       "bearing": initialBearingBetweenCoordinates(lat, long, station.lat, station.long)
     }
   }).sort((a, b) => {
-    return a.statuteMiles - b.statuteMiles
+    return a.distance - b.distance
   })
   return stationDist
 }
