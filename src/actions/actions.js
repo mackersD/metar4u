@@ -125,14 +125,12 @@ export function fetchGeoname(geoname) {
     return fetch("http://api.geonames.org/searchJSON?username=metar4u&q=" + encodeurl(geoname.text))
       .then(response => {
         if(!response || !response.ok) {
-
         }
         return response.json()
       })
       .then(json => {
         var latLong = getLatLongFromGeonameResult(json)
         dispatch(updateMetarsLocation(latLong.lat, latLong.long))
-
       })
   }
 }
@@ -146,8 +144,9 @@ function getLatLongFromGeonameResult(result) {
 
   if(geonames) {
     for(var i = 0; i < geonames.length; i++) {
+      console.log(geonames[i])
       if(geonames[i].lat && geonames[i].lng) {
-        latLong.lat = geonames[i].latt
+        latLong.lat = geonames[i].lat
 
         latLong.long = geonames[i].lng
         return latLong

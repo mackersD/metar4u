@@ -5,7 +5,7 @@ import Spinner from './Spinner'
 
 const Metar = (props) => {
   return (
-    <div>
+    <div className="metar">
       <Spinner
         isFetching={props.isFetching}
         isFailed={props.isFailed}
