@@ -159,7 +159,7 @@ function getLatLongFromGeonameResult(result) {
 export function bootstrapLocationAndMetars(count) {
   return (dispatch, getState) => {
     dispatch(requestGeolocation())
-    if(navigator.geolocation && navigator.geolocation.getCurrentPostion) {
+    if(navigator.geolocation && navigator.geolocation.getCurrentPosition) {
       return navigator.geolocation.getCurrentPosition(pos => {
         var lat = pos.coords.latitude
         var long = pos.coords.longitude
