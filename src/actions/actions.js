@@ -71,10 +71,12 @@ function fetchMetar(icao) {
 export function updateMetarsLocation(lat, long) {
   return (dispatch, getState) => {
     var nearestStations = getNearestStations(lat, long)
-    getState().metars.map((metar, index) => {
-      dispatch(updateMetarStation(metar.icao, nearestStations[index]))
-      dispatch(fetchMetar(nearestStations[index].icao))
-    })
+    var metars = getState().metars
+    for(var i = 0; i < metars.length; i++) {
+      var metar = metars[i]
+      dispatch(updateMetarStation(metar.icao, nearestStations[i]))
+      dispatch(fetchMetar(nearestStations[i].icao))
+    }
   }
 }
 
@@ -144,7 +146,6 @@ function getLatLongFromGeonameResult(result) {
 
   if(geonames) {
     for(var i = 0; i < geonames.length; i++) {
-      console.log(geonames[i])
       if(geonames[i].lat && geonames[i].lng) {
         latLong.lat = geonames[i].lat
         latLong.long = geonames[i].lng
@@ -158,7 +159,7 @@ function getLatLongFromGeonameResult(result) {
 export function bootstrapLocationAndMetars(count) {
   return (dispatch, getState) => {
     dispatch(requestGeolocation())
-    if(navigator.geolocation) {
+    if(navigator.geolocation && navigator.geolocation.getCurrentPostion) {
       return navigator.geolocation.getCurrentPosition(pos => {
         var lat = pos.coords.latitude
         var long = pos.coords.longitude

@@ -31,8 +31,10 @@ class LocationLookup extends React.Component {
 
   render() {
     var geoLoc = this.props.geolocation
+    var placeholder = geoLoc.isFailed ? "Enter location" : geoLoc.lat + ' ' + geoLoc.long
     return (
-      <Spinner>
+      <Spinner
+      >
         <Form
           model="deep.lookup"
           onUpdate={(form) => this.handleUpdate(form)}
@@ -41,7 +43,7 @@ class LocationLookup extends React.Component {
         >
           <Control.text
             model=".text"
-            placeholder={geoLoc.lat + ' ' + geoLoc.long}
+            placeholder={placeholder}
           />
           <button type="submit">Search</button>
         </Form>
@@ -57,10 +59,12 @@ const processGeonameText = text => {
     text
   }
   var latLongRegex = /^(?:lat\D*?)*?(-?[\d]+\.?[\d]*)[\s]+(?:long\D*?)*?(-?[\d]+\.?[\d]*)$/
-  var matches = text.match(latLongRegex)
-  if(matches) {
-    result.lat = matches[1], //capture groups start on index 1
-    result.long = matches[2]
+  if(text) {
+    var matches = text.match(latLongRegex)
+    if(matches) {
+      result.lat = matches[1] //capture groups start on index 1
+      result.long = matches[2]
+    }
   }
   return result
 }

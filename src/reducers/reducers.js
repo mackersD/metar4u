@@ -93,6 +93,7 @@ action) => {
           updatedAt: action.updatedAt
         })
       }
+      return state
     default:
       return state
   }
