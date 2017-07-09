@@ -5,6 +5,7 @@
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "encodeurl": "^1.0.1",
+    "enzyme": "^2.9.1",
     "es6-promise": "^4.1.0",
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.5.4",

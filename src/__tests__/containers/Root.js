@@ -1,8 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Root from '../../containers/Root';
+import React from 'react'
+import Root from '../../containers/Root'
+import renderer from 'react-test-renderer'
 
 it('Root renders', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Root />, div);
-});
+  /*const tree = renderer.create(
+    <Root />
+  ).toJSON()
+  expect(tree).toMatchSnapshot()
+  */
+})

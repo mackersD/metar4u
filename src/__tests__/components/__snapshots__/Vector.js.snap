@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Vector - direction + distance 1`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(90deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(90deg)",
+        "transform": "rotate(90deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    20
+  </div>
+</div>
+`;
+
+exports[`Vector - distance 1`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(0deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(0deg)",
+        "transform": "rotate(0deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    20
+  </div>
+</div>
+`;
+
+exports[`Vector - distance 2`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(0deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(0deg)",
+        "transform": "rotate(0deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    -20
+  </div>
+</div>
+`;
+
+exports[`Vector - negative rotation 1`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(-45deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(-45deg)",
+        "transform": "rotate(-45deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    0
+  </div>
+</div>
+`;
+
+exports[`Vector - negative rotation 2`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(-540deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(-540deg)",
+        "transform": "rotate(-540deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    0
+  </div>
+</div>
+`;
+
+exports[`Vector - positive rotation 1`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(45deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(45deg)",
+        "transform": "rotate(45deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    0
+  </div>
+</div>
+`;
+
+exports[`Vector - positive rotation 2`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(540deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(540deg)",
+        "transform": "rotate(540deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    0
+  </div>
+</div>
+`;
+
+exports[`Vector - renders 1`] = `
+<div
+  className="vector"
+>
+  <div
+    className="vectorArrow"
+    style={
+      Object {
+        "WebkitTransform": "rotate(0deg)",
+        "display": "inline-block",
+        "msTransform": "rotate(0deg)",
+        "transform": "rotate(0deg)",
+      }
+    }
+  >
+    ^
+  </div>
+  <div
+    className="vectorDistance"
+  >
+    0
+  </div>
+</div>
+`;

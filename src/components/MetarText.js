@@ -2,7 +2,7 @@ import React from 'react'
 
 const MetarText = (props) => {
   return (
-    <div>
+    <div className="metarText">
       {props.text}
     </div>
   )

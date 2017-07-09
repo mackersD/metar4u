@@ -1,7 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MetarText - expected rendering 1`] = `
-<div>
-  KGTU
+<div
+  className="metarText"
+>
+  KAUS 091853Z 16008KT 10SM FEW065 FEW250 36/20 A3004 RMK AO2 SLP158 T03560200
 </div>
+`;
+
+exports[`MetarText - renders 1`] = `
+<div
+  className="metarText"
+/>
 `;

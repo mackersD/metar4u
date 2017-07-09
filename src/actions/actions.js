@@ -147,7 +147,8 @@ function getLatLongFromGeonameResult(result) {
   if(geonames) {
     for(var i = 0; i < geonames.length; i++) {
       if(geonames[i].lat && geonames[i].lng) {
-        latLong.lat = geonames[i].lat
+        latLong.lat = geonames[i].latt
+
         latLong.long = geonames[i].lng
         return latLong
       }

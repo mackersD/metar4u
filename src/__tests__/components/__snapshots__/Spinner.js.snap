@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner - fetching 1`] = `
+<div
+  className="spinner"
+>
+  Fetching
+</div>
+`;
+
+exports[`Spinner - isFailed 1`] = `null`;
+
+exports[`Spinner - isFetching + isFailed 1`] = `
+<div
+  className="spinner"
+>
+  Fetching
+</div>
+`;
+
+exports[`Spinner - renders 1`] = `
+<div
+  className="spinner"
+/>
+`;

@@ -3,15 +3,13 @@ import React from 'react'
 const Spinner = (props) => {
   if(props.isFetching) {
     return (
-      <div>{"Fetching"}</div>
+      <div className="spinner">{"Fetching"}</div>
     )
   } else if (props.isFailed) {
-    return (
-      <div></div>
-    )
+    return (null)
   }
   return (
-    <div>
+    <div className="spinner">
       {props.children}
     </div>
   )

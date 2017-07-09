@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Metar - failed 1`] = `<div />`;
+
+exports[`Metar - failed 2`] = `<div />`;
+
+exports[`Metar - failed 3`] = `<div />`;
+
+exports[`Metar - failed 4`] = `<div />`;
+
+exports[`Metar - fetching 1`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    Fetching
+  </div>
+</div>
+`;
+
+exports[`Metar - fetching 2`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    Fetching
+  </div>
+</div>
+`;
+
+exports[`Metar - fetching 3`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    Fetching
+  </div>
+</div>
+`;
+
+exports[`Metar - fetching 4`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    Fetching
+  </div>
+</div>
+`;
+
+exports[`Metar - renders 1`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    <div
+      className="vector"
+    >
+      <div
+        className="vectorArrow"
+        style={
+          Object {
+            "WebkitTransform": "rotate(0deg)",
+            "display": "inline-block",
+            "msTransform": "rotate(0deg)",
+            "transform": "rotate(0deg)",
+          }
+        }
+      >
+        ^
+      </div>
+      <div
+        className="vectorDistance"
+      >
+        0
+      </div>
+    </div>
+    <div
+      className="metarText"
+    />
+  </div>
+</div>
+`;
+
+exports[`Metar - vector + report 1`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    <div
+      className="vector"
+    >
+      <div
+        className="vectorArrow"
+        style={
+          Object {
+            "WebkitTransform": "rotate(135deg)",
+            "display": "inline-block",
+            "msTransform": "rotate(135deg)",
+            "transform": "rotate(135deg)",
+          }
+        }
+      >
+        ^
+      </div>
+      <div
+        className="vectorDistance"
+      >
+        20
+      </div>
+    </div>
+    <div
+      className="metarText"
+    >
+      KAUS 091853Z 16008KT 10SM FEW065 FEW250 36/20 A3004 RMK AO2 SLP158 T03560200
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Metar - vector + report 2`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    <div
+      className="vector"
+    >
+      <div
+        className="vectorArrow"
+        style={
+          Object {
+            "WebkitTransform": "rotate(135deg)",
+            "display": "inline-block",
+            "msTransform": "rotate(135deg)",
+            "transform": "rotate(135deg)",
+          }
+        }
+      >
+        ^
+      </div>
+      <div
+        className="vectorDistance"
+      >
+        20
+      </div>
+    </div>
+    <div
+      className="metarText"
+    />
+  </div>
+</div>
+`;
+
+exports[`Metar - vector + report 3`] = `
+<div>
+  <div
+    className="spinner"
+  >
+    <div
+      className="vector"
+    >
+      <div
+        className="vectorArrow"
+        style={
+          Object {
+            "WebkitTransform": "rotate(0deg)",
+            "display": "inline-block",
+            "msTransform": "rotate(0deg)",
+            "transform": "rotate(0deg)",
+          }
+        }
+      >
+        ^
+      </div>
+      <div
+        className="vectorDistance"
+      >
+        0
+      </div>
+    </div>
+    <div
+      className="metarText"
+    >
+      KAUS 091853Z 16008KT 10SM FEW065 FEW250 36/20 A3004 RMK AO2 SLP158 T03560200
+    </div>
+  </div>
+</div>
+`;

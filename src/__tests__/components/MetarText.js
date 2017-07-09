@@ -1,14 +1,18 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import MetarText from '../../components/MetarText'
 
 it('MetarText - renders', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<MetarText />, div)
+  const tree = renderer.create(
+    <MetarText />
+  ).toJSON()
+  expect(tree).toMatchSnapshot()
 });
 
 it('MetarText - expected rendering', () => {
-  var comp = renderer.create(<MetarText text={"KGTU"} />).toJSON()
+  var text = "KAUS 091853Z 16008KT 10SM FEW065 FEW250 36/20 A3004 RMK AO2 SLP158 T03560200"
+  var comp = renderer.create(
+    <MetarText text={text} />
+  ).toJSON()
   expect(comp).toMatchSnapshot()
 })

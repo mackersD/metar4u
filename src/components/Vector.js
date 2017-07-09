@@ -1,17 +1,21 @@
 import React from 'react'
 
 const Vector = (props) => {
-  var styles = {
-    "msTransform": "rotate(" + props.direction + "deg)",
-    "WebkitTransform": "rotate(" + props.direction + "deg)",
-    "transform": "rotate(" + props.direction + "deg)",
+
+  var direction = props.direction ? props.direction : 0
+  var distance = props.distance ? props.distance : 0
+
+  var arrowStyle = {
+    "msTransform": "rotate(" + direction + "deg)",
+    "WebkitTransform": "rotate(" + direction + "deg)",
+    "transform": "rotate(" + direction + "deg)",
     "display": "inline-block"
   }
 
   return (
-    <div>
-      <div style={styles}>{"^"}</div>
-      <div>{Math.round(props.distance)}</div>
+    <div className="vector">
+      <div className="vectorArrow" style={arrowStyle}>{"^"}</div>
+      <div className="vectorDistance">{Math.round(distance)}</div>
     </div>
   )
 }
