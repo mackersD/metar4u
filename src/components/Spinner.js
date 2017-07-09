@@ -5,6 +5,10 @@ const Spinner = (props) => {
     return (
       <div>{"Fetching"}</div>
     )
+  } else if (props.isFailed) {
+    return (
+      <div></div>
+    )
   }
   return (
     <div>

@@ -1,6 +1,7 @@
 import * as ACTION from '../util/constants'
 import fetch from 'isomorphic-fetch'
 import { getNearestStations } from '../util/stations'
+import encodeurl from 'encodeurl'
 
 function requestMetar(icao) {
   return {
@@ -36,6 +37,17 @@ function addMetar(options) {
   }
 }
 
+function updateMetarStation(icao, newStation) {
+  return {
+    type: ACTION.UPDATE_METAR_STATION,
+    icao,
+    newIcao: newStation.icao,
+    newDistance: newStation.distance,
+    newBearing: newStation.bearing,
+    updatedAt: Date.now()
+  }
+}
+
 function fetchMetar(icao) {
   return dispatch => {
     dispatch(requestMetar(icao))
@@ -53,6 +65,16 @@ function fetchMetar(icao) {
           dispatch(requestMetarSuccess(icao, json))
         }
       })
+  }
+}
+
+export function updateMetarsLocation(lat, long) {
+  return (dispatch, getState) => {
+    var nearestStations = getNearestStations(lat, long)
+    getState().metars.map((metar, index) => {
+      dispatch(updateMetarStation(metar.icao, nearestStations[index]))
+      dispatch(fetchMetar(nearestStations[index].icao))
+    })
   }
 }
 
@@ -77,7 +99,63 @@ export function requestGeolocationFailure(err) {
   }
 }
 
-export function bootstrapLocationAndMetars() {
+export function searchGeoname(text) {
+  return {
+    type: ACTION.SEARCH_GEONAME,
+    text
+  }
+}
+
+export function searchGeonameResult(result) {
+  return {
+    type: ACTION.SEARCH_GEONAME_RESULT,
+    result
+  }
+}
+
+export function fetchGeoname(geoname) {
+  return (dispatch, getState) => {
+    if(geoname.lat && geoname.long) {
+      return dispatch(updateMetarsLocation(geoname.lat, geoname.long))
+    }
+    dispatch(searchGeoname(geoname.text))
+
+    return fetch("http://api.geonames.org/searchJSON?username=metar4u&q=" + encodeurl(geoname.text))
+      .then(response => {
+        if(!response || !response.ok) {
+
+        }
+        return response.json()
+      })
+      .then(json => {
+        var latLong = getLatLongFromGeonameResult(json)
+        dispatch(updateMetarsLocation(latLong.lat, latLong.long))
+
+      })
+  }
+}
+
+function getLatLongFromGeonameResult(result) {
+  var geonames = result.geonames
+  var latLong = {
+    lat: undefined,
+    long: undefined
+  }
+
+  if(geonames) {
+    for(var i = 0; i < geonames.length; i++) {
+      console.log(geonames[i])
+      if(geonames[i].lat && geonames[i].lng) {
+        latLong.lat = geonames[i].lat
+        latLong.long = geonames[i].lng
+        return latLong
+      }
+    }
+  }
+  return latLong
+}
+
+export function bootstrapLocationAndMetars(count) {
   return (dispatch, getState) => {
     dispatch(requestGeolocation())
     if(navigator.geolocation) {
@@ -86,7 +164,7 @@ export function bootstrapLocationAndMetars() {
         var long = pos.coords.longitude
          dispatch(requestGeolocationSuccess(lat, long))
          var stations = getNearestStations(lat, long)
-         for(var i = 0; i < 20; i++) {
+         for(var i = 0; i < count; i++) {
            dispatch(addMetar(stations[i]))
            dispatch(fetchMetar(stations[i].icao))
          }

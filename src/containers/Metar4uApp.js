@@ -1,19 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import MetarList from './MetarList'
+import MetarLookup from './MetarLookup'
+
 import { bootstrapLocationAndMetars } from '../actions/actions'
 
 class Metar4uApp extends React.Component {
-
-  componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(bootstrapLocationAndMetars())
-  }
-
   render() {
     return (
       <div>
-        <MetarList />
+        <MetarLookup
+          defaultMetarCount={5}
+        />
       </div>
     )
   }

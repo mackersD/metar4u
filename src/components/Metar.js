@@ -6,7 +6,10 @@ import Spinner from './Spinner'
 const Metar = (props) => {
   return (
     <div>
-      <Spinner isFetching={props.isFetching}>
+      <Spinner
+        isFetching={props.isFetching}
+        isFailed={props.isFailed}
+      >
         <Vector
           distance={props.distance}
           direction={props.direction}

@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "encodeurl": "^1.0.1",
     "es6-promise": "^4.1.0",
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "react-redux-form": "^1.13.0",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",

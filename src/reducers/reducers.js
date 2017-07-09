@@ -1,7 +1,14 @@
 import * as ACTION from '../util/constants'
 import { combineReducers } from 'redux'
+import { combineForms } from 'react-redux-form'
 
-const location = (state = {
+const initialgeolookup = {
+  lat: undefined,
+  long: undefined,
+  text: undefined
+}
+
+const geolocation = (state = {
   isFailed: false,
   isFetching: false,
   lat: undefined,
@@ -73,6 +80,19 @@ action) => {
         })
       }
       return state
+    case ACTION.UPDATE_METAR_STATION:
+      if(state.icao === action.icao) {
+        return Object.assign({}, state, {
+          bearing: action.newBearing,
+          rawReport: undefined,
+          distance: action.newDistance,
+          error: undefined,
+          icao: action.newIcao,
+          isFailed: false,
+          isFetching: false,
+          updatedAt: action.updatedAt
+        })
+      }
     default:
       return state
   }
@@ -91,8 +111,11 @@ const metars = (state = [], action) => {
 }
 
 const rootReducer = combineReducers({
-  location,
-  metars
+  geolocation,
+  metars,
+  deep: combineForms({
+    lookup: initialgeolookup
+  }, 'deep')
 })
 
 export default rootReducer

@@ -14,6 +14,7 @@ const MetarList = (props) => {
             rawReport={metar.rawReport}
             error={metar.error}
             isFetching={metar.isFetching}
+            isFailed={metar.isFailed}
           />
         )
       })}
