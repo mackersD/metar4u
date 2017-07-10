@@ -3,14 +3,14 @@ import fetch from 'isomorphic-fetch'
 import { getNearestStations } from '../util/stations'
 import encodeurl from 'encodeurl'
 
-function requestMetar(icao) {
+export function requestMetar(icao) {
   return {
     type: ACTION.REQUEST_METAR,
     icao
   }
 }
 
-function requestMetarSuccess(icao, data) {
+export function requestMetarSuccess(icao, data) {
   return {
     type: ACTION.REQUEST_METAR_SUCCESS,
     data,
@@ -19,7 +19,7 @@ function requestMetarSuccess(icao, data) {
   }
 }
 
-function requestMetarFailure(icao, error) {
+export function requestMetarFailure(icao, error) {
   return {
     type: ACTION.REQUEST_METAR_FAILURE,
     error,
@@ -28,7 +28,7 @@ function requestMetarFailure(icao, error) {
   }
 }
 
-function addMetar(options) {
+export function addMetar(options) {
   return {
     type: ACTION.ADD_METAR,
     icao: options.icao,
@@ -37,7 +37,7 @@ function addMetar(options) {
   }
 }
 
-function updateMetarStation(icao, newStation) {
+export function updateMetarStation(icao, newStation) {
   return {
     type: ACTION.UPDATE_METAR_STATION,
     icao,
@@ -48,7 +48,7 @@ function updateMetarStation(icao, newStation) {
   }
 }
 
-function fetchMetar(icao) {
+export function fetchMetar(icao) {
   return dispatch => {
     dispatch(requestMetar(icao))
     return fetch('http://avwx.rest/api/metar/' + icao)
