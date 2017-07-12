@@ -12,38 +12,21 @@ class LocationLookup extends React.Component {
 
   }
 
-  componentDidMount() {
-  }
-
-  handleChange(values) {
-
-  }
-
-  handleUpdate(form) {
-
-  }
-
-  handleSubmit(values) {
+  handleSubmit(lookup) {
     const { dispatch } = this.props
-    var geoname = processGeonameText(values.text)
-    //dispatch(actions.fetchGeoname(geoname))
+    dispatch(actions.fetchLocation(lookup))
   }
 
   render() {
-    var geoLoc = this.props.geolocation
-    var placeholder = geoLoc.isFailed ? "Enter location" : geoLoc.lat + ' ' + geoLoc.long
     return (
       <Spinner
       >
         <Form
           model="deep.lookup"
-          onUpdate={(form) => this.handleUpdate(form)}
-          onChange={(values) => this.handleChange(values)}
-          onSubmit={(values) => this.handleSubmit(values)}
+          onSubmit={(lookup) => this.handleSubmit(lookup)}
         >
           <Control.text
             model=".text"
-            placeholder={placeholder}
           />
           <button type="submit">Search</button>
         </Form>
@@ -52,29 +35,4 @@ class LocationLookup extends React.Component {
   }
 }
 
-const processGeonameText = text => {
-  var result = {
-    lat: undefined,
-    long: undefined,
-    text
-  }
-  var latLongRegex = /^(?:lat\D*?)*?(-?[\d]+\.?[\d]*)[\s]+(?:long\D*?)*?(-?[\d]+\.?[\d]*)$/
-  if(text) {
-    var matches = text.match(latLongRegex)
-    if(matches) {
-      result.lat = matches[1] //capture groups start on index 1
-      result.long = matches[2]
-    }
-  }
-  return result
-}
-
-const mapStateToProps = state => {
-  return {
-    geolocation: state.geolocation
-  }
-}
-
-export default connect(
-  mapStateToProps
-)(LocationLookup)
+export default connect()(LocationLookup)

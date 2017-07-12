@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions/actions'
 import Metar from '../components/Metar'
+import uuid from 'uuid/v4'
 
 class MetarList extends React.Component {
 
@@ -12,11 +13,14 @@ class MetarList extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.metarList.metars.map((metar) => {
+      <div className="metarList">
+        <div className="location">
+          {"Latitude:" + this.props.metarList.lat + " Longitude: " + this.props.metarList.long}
+        </div>
+        {this.props.metarList.metars.map((metar, index) => {
           return (
             <Metar
-              key={metar.icao}
+              key={metar.icao + this.props.metarList.updatedAt}
               distance={metar.distance}
               direction={metar.bearing}
               error={metar.error}

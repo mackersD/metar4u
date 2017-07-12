@@ -1,6 +1,11 @@
 import * as ACTION from '../util/constants'
+import { combineForms } from 'react-redux-form'
 import { combineReducers } from 'redux'
 import { getNearestStations } from '../util/stations'
+
+const defaultLookup = {
+  text: undefined
+}
 
 const defaultMetarState = {
   bearing: undefined,
@@ -18,7 +23,8 @@ const metarList = (state = {
   lat: undefined,
   long: undefined,
   metars: [],
-  nearestStations: []
+  nearestStations: [],
+  updatedAt: undefined
 }, action) => {
   switch(action.type) {
     case ACTION.CHANGE_LOCATION:
@@ -28,7 +34,8 @@ const metarList = (state = {
         lat: action.lat,
         long: action.long,
         metars: nearestMetars.map(rec => Object.assign({}, defaultMetarState, rec)),
-        nearestStations
+        nearestStations,
+        updatedAt: action.updatedAt
         })
     default:
       return Object.assign({}, state, {
@@ -72,7 +79,10 @@ const metar = (state = defaultMetarState, action) => {
 }
 
 const rootReducer = combineReducers({
-  metarList
+  metarList,
+  deep: combineForms({
+    lookup: defaultLookup
+  }, 'deep')
 })
 
 export default rootReducer
