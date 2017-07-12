@@ -1,58 +1,44 @@
 import * as ACTION from '../util/constants'
 import { combineReducers } from 'redux'
-import { combineForms } from 'react-redux-form'
+import { getNearestStations } from '../util/stations'
 
-const initialgeolookup = {
-  lat: undefined,
-  long: undefined,
-  text: undefined
-}
-
-const geolocation = (state = {
-  isFailed: false,
-  isFetching: false,
-  lat: undefined,
-  long: undefined
-}, action) => {
-  switch(action.type) {
-    case ACTION.REQUEST_GEOLOCATION:
-      return Object.assign({}, state, {
-        isFetching: true
-      })
-    case ACTION.REQUEST_GEOLOCATION_SUCCESS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        lat: action.lat,
-        long: action.long
-      })
-    case ACTION.REQUEST_GEOLOCATION_FAILURE:
-      return Object.assign({}, state, {
-        isFailed: true,
-        isFetching: false
-      })
-    default:
-      return state
-  }
-}
-
-const metar = (state = {
+const defaultMetarState = {
   bearing: undefined,
-  rawReport: undefined,
   distance: undefined,
   error: undefined,
   icao: undefined,
   isFailed: false,
   isFetching: false,
+  rawReport: undefined,
   updatedAt: undefined
-},
-action) => {
+}
+
+const metarList = (state = {
+  initialCount: 10,
+  lat: undefined,
+  long: undefined,
+  metars: [],
+  nearestStations: []
+}, action) => {
   switch(action.type) {
-    case ACTION.ADD_METAR:
+    case ACTION.CHANGE_LOCATION:
+      var nearestStations = getNearestStations(action.lat, action.long)
+      var nearestMetars = nearestStations.slice(0, state.initialCount)
       return Object.assign({}, state, {
-        icao: action.icao,
-        distance: action.distance,
-        bearing: action.bearing
+        lat: action.lat,
+        long: action.long,
+        metars: nearestMetars.map(rec => Object.assign({}, defaultMetarState, rec)),
+        nearestStations
+        })
+    default:
+      return Object.assign({}, state, {
+        metars: state.metars.map(rec => metar(rec, action))
       })
+  }
+}
+
+const metar = (state = defaultMetarState, action) => {
+  switch(action.type) {
     case ACTION.REQUEST_METAR:
       if(state.icao === action.icao) {
         return Object.assign({}, state, {
@@ -80,43 +66,13 @@ action) => {
         })
       }
       return state
-    case ACTION.UPDATE_METAR_STATION:
-      if(state.icao === action.icao) {
-        return Object.assign({}, state, {
-          bearing: action.newBearing,
-          rawReport: undefined,
-          distance: action.newDistance,
-          error: undefined,
-          icao: action.newIcao,
-          isFailed: false,
-          isFetching: false,
-          updatedAt: action.updatedAt
-        })
-      }
-      return state
     default:
       return state
-  }
-}
-
-const metars = (state = [], action) => {
-  switch(action.type) {
-    case ACTION.ADD_METAR:
-      return [
-        ...state,
-        metar(undefined, action)
-      ]
-    default:
-      return state.map(rec => metar(rec, action))
   }
 }
 
 const rootReducer = combineReducers({
-  geolocation,
-  metars,
-  deep: combineForms({
-    lookup: initialgeolookup
-  }, 'deep')
+  metarList
 })
 
 export default rootReducer

@@ -1,30 +1,41 @@
 import React from 'react'
-import Metar from '../components/Metar'
 import { connect } from 'react-redux'
+import * as actions from '../actions/actions'
+import Metar from '../components/Metar'
 
-const MetarList = (props) => {
-  return (
-    <div>
-      {props.metars.map((metar) => {
-        return (
-          <Metar
-            key={metar.icao}
-            distance={metar.distance}
-            direction={metar.bearing}
-            rawReport={metar.rawReport}
-            error={metar.error}
-            isFetching={metar.isFetching}
-            isFailed={metar.isFailed}
-          />
-        )
-      })}
-    </div>
-  )
+class MetarList extends React.Component {
+
+  loadMetar(icao) {
+    const { dispatch } = this.props
+    dispatch(actions.fetchMetar(icao))
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.metarList.metars.map((metar) => {
+          return (
+            <Metar
+              key={metar.icao}
+              distance={metar.distance}
+              direction={metar.bearing}
+              error={metar.error}
+              icao={metar.icao}
+              isFetching={metar.isFetching}
+              isFailed={metar.isFailed}
+              onMount={() => { this.loadMetar(metar.icao)}}
+              rawReport={metar.rawReport}
+            />
+          )
+        })}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => {
   return {
-    metars: state.metars
+    metarList: state.metarList
   }
 }
 

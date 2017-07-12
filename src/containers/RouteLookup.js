@@ -4,55 +4,41 @@ import { Form, Control } from 'react-redux-form'
 import Spinner from '../components/Spinner'
 import * as actions from '../actions/actions'
 
-class LocationLookup extends React.Component {
+class RouteLookup extends React.Component {
 
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
-
-  }
-
-  componentDidMount() {
-  }
-
-  handleChange(values) {
-
-  }
-
-  handleUpdate(form) {
-
   }
 
   handleSubmit(values) {
     const { dispatch } = this.props
-    var geoname = processGeonameText(values.text)
-    //dispatch(actions.fetchGeoname(geoname))
+    var result = processFormText(values.text)
+    dispatch(actions.fetchGeoname(result))
   }
 
   render() {
-    var geoLoc = this.props.geolocation
+    var geoLoc = this.props.location.geoLocation
     var placeholder = geoLoc.isFailed ? "Enter location" : geoLoc.lat + ' ' + geoLoc.long
     return (
       <Spinner
       >
         <Form
           model="deep.lookup"
-          onUpdate={(form) => this.handleUpdate(form)}
-          onChange={(values) => this.handleChange(values)}
           onSubmit={(values) => this.handleSubmit(values)}
         >
           <Control.text
             model=".text"
             placeholder={placeholder}
           />
-          <button type="submit">Search</button>
+          <button type="submit">Get METARs</button>
         </Form>
       </Spinner>
     )
   }
 }
 
-const processGeonameText = text => {
+const processFormText = text => {
   var result = {
     lat: undefined,
     long: undefined,
@@ -71,10 +57,10 @@ const processGeonameText = text => {
 
 const mapStateToProps = state => {
   return {
-    geolocation: state.geolocation
+    location: state.location
   }
 }
 
 export default connect(
   mapStateToProps
-)(LocationLookup)
+)(RouteLookup)
