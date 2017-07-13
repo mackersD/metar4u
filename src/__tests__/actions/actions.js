@@ -39,4 +39,37 @@ describe('actions', () => {
     }
     expect(actions.requestMetarFailure(icao, error)).toEqual(expectedAction)
   })
+
+  it('request geonames', () => {
+    const lookup = {
+      lat: 0,
+      long: 0,
+      text: "Dallas, TX"
+    }
+    const expectedAction = {
+      type: CONSTANT.REQUEST_GEONAMES,
+      lookup
+    }
+    expect(actions.requestGeonames(lookup)).toEqual(expectedAction)
+  })
+
+  it('reqeust geonames success', () => {
+    var lat = 0
+    var long = 0
+    var json = {}
+    const expectedAction = {
+      type: CONSTANT.REQUEST_GEONAMES_SUCCESS,
+      lat,
+      long,
+      json
+    }
+    expect(actions.requestGeonamesSuccess(lat, long, json)).toEqual(expectedAction)
+  })
+
+  it('request geonames failure', () => {
+    const expectedAction = {
+      type: CONSTANT.REQUEST_GEONAMES_FAILURE
+    }
+    expect(actions.requestGeonamesFailure()).toEqual(expectedAction)
+  })
 })

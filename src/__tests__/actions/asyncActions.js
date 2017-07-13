@@ -91,4 +91,11 @@ describe('async actions', () => {
       })
   })
 
+  it('fetch location - latlong success', () => {
+
+  })
+
+  it('fetch geonames - latlong failure', () => {
+
+  })
 })
