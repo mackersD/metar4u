@@ -92,10 +92,137 @@ describe('async actions', () => {
   })
 
   it('fetch location - latlong success', () => {
+    Date.now = jest.fn(() => 1482363367071)
+    const opts = {
+      lookup: {
+        text: "40 -97"
+      },
+      lat: "40",
+      long: "-97"
+    }
 
+    const expectedActions = [
+      {
+        type: CONSTANT.REQUEST_GEONAMES,
+        lookup: opts.lookup
+      },
+      {
+        type: CONSTANT.REQUEST_GEONAMES_SUCCESS,
+        lat: opts.lat,
+        long: opts.long,
+        json: undefined
+      },
+      {
+        type: CONSTANT.CHANGE_LOCATION,
+        lat: opts.lat,
+        long: opts.long,
+        updatedAt: Date.now()
+      }
+    ]
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchLocation(opts.lookup))
+    expect(store.getActions()).toEqual(expectedActions)
   })
 
-  it('fetch geonames - latlong failure', () => {
+  it('fetch location - geoname success', () => {
+    Date.now = jest.fn(() => 1482363367071)
+    const opts = {
+      lookup: {
+        text: "KGTU"
+      },
+      lat: 30.67817,
+      long: -97.67651
+    }
 
+    const geonameData = {
+      "totalResultsCount": 1,
+      "geonames": [
+        {
+          "adminCode1": "TX",
+          "lng": "-97.67651",
+          "geonameId": 4693351,
+          "toponymName": "Georgetown Municipal Airport",
+          "countryId": "6252001",
+          "fcl": "S",
+          "population": 0,
+          "countryCode": "US",
+          "name": "Georgetown Municipal Airport",
+          "fclName": "spot, building, farm",
+          "countryName": "United States",
+          "fcodeName": "airport",
+          "adminName1": "Texas",
+          "lat": "30.67817",
+          "fcode": "AIRP"
+        }
+      ]
+    }
+
+    nock('http://api.geonames.org/searchJSON?username=metar4u&q=KGTU')
+      .get('')
+      .reply(200, geonameData)
+
+    const expectedActions = [
+      {
+        type: CONSTANT.REQUEST_GEONAMES,
+        lookup: opts.lookup
+      },
+      {
+        type: CONSTANT.REQUEST_GEONAMES_SUCCESS,
+        lat: opts.lat,
+        long: opts.long,
+        json: undefined
+      },
+      {
+        type: CONSTANT.CHANGE_LOCATION,
+        lat: opts.lat,
+        long: opts.long,
+        updatedAt: Date.now()
+      }
+    ]
+
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchLocation(opts.lookup))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
+  it('fetch location - geoname failure', () => {
+    Date.now = jest.fn(() => 1482363367071)
+    const opts = {
+      lookup: {
+        text: "KGTUUUU"
+      },
+      lat: 30.67817,
+      long: -97.67651
+    }
+
+    const geonameData = {
+      "totalResultsCount": 0,
+      "geonames": []
+    }
+
+    nock('http://api.geonames.org/searchJSON?username=metar4u&q=KGTUUUU')
+      .get('')
+      .reply(200, geonameData)
+
+    const expectedActions = [
+      {
+        type: CONSTANT.REQUEST_GEONAMES,
+        lookup: opts.lookup
+      },
+      {
+        type: CONSTANT.REQUEST_GEONAMES_FAILURE
+      }
+    ]
+
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchLocation(opts.lookup))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
   })
 })

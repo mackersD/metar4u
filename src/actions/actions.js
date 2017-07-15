@@ -88,8 +88,7 @@ export function fetchLocation(lookup) {
       return dispatch(changeLocation(geoname.lat, geoname.long))
     }
     if(!geoname.text){
-      dispatch(requestGeonamesFailure())
-      return
+      return dispatch(requestGeonamesFailure())
     }
     return fetch('http://api.geonames.org/searchJSON?username=metar4u&q=' + encodeurl(lookup.text))
       .then(response => {
