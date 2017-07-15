@@ -6,7 +6,9 @@ const Spinner = (props) => {
       <div className="spinner">{"Fetching"}</div>
     )
   } else if (props.isFailed) {
-    return (null)
+    return (
+    <div className="spinner">{"Failed"}</div>
+  )
   }
   return (
     <div className="spinner">
