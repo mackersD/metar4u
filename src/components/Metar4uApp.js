@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import MetarLookup from './MetarLookup'
 
 class Metar4uApp extends React.Component {
@@ -14,4 +13,4 @@ class Metar4uApp extends React.Component {
   }
 }
 
-export default connect()(Metar4uApp)
+export default Metar4uApp

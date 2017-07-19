@@ -1,15 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions/actions'
-import Metar from '../components/Metar'
+import Metar from './Metar'
 import uuid from 'uuid/v4'
 
 class MetarList extends React.Component {
-
-  loadMetar(icao) {
-    const { dispatch } = this.props
-    dispatch(actions.fetchMetar(icao))
-  }
 
   render() {
     return (
@@ -27,7 +22,6 @@ class MetarList extends React.Component {
               icao={metar.icao}
               isFetching={metar.isFetching}
               isFailed={metar.isFailed}
-              onMount={() => { this.loadMetar(metar.icao)}}
               rawReport={metar.rawReport}
             />
           )

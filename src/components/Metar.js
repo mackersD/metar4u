@@ -1,16 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import MetarText from './MetarText'
 import Vector from './Vector'
 import Spinner from './Spinner'
+import * as actions from '../actions/actions'
 
 
 class Metar extends React.Component {
 
   componentDidMount() {
-    if(this.props.onMount && typeof(this.props.onMount === 'function')) {
-      this.props.onMount()
-    }
+    this.props.fetchMetar(this.props.icao)
   }
+
   render() {
     return (
       <div className="metar">
@@ -31,4 +32,11 @@ class Metar extends React.Component {
   }
 }
 
-export default Metar
+const mapDispatchToProps = dispatch => ({
+  fetchMetar: (icao) => dispatch(actions.fetchMetar(icao))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Metar)
