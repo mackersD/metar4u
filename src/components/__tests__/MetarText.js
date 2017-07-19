@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import MetarText from '../../components/MetarText'
+import MetarText from '../MetarText'
 
 it('MetarText - renders', () => {
   const tree = renderer.create(

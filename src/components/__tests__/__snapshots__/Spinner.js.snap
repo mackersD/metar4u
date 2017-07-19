@@ -8,7 +8,13 @@ exports[`Spinner - fetching 1`] = `
 </div>
 `;
 
-exports[`Spinner - isFailed 1`] = `null`;
+exports[`Spinner - isFailed 1`] = `
+<div
+  className="spinner"
+>
+  Failed
+</div>
+`;
 
 exports[`Spinner - isFetching + isFailed 1`] = `
 <div

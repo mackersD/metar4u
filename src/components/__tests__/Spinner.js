@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import Spinner from '../../components/Spinner'
+import Spinner from '../Spinner'
 
 it('Spinner - renders', () => {
   const tree = renderer.create(

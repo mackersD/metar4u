@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import Metar from '../../components/Metar'
+import Metar from '../Metar'
 
 it('Metar - renders', () => {
   const tree = renderer.create(

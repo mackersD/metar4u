@@ -3,25 +3,49 @@
 exports[`Metar - failed 1`] = `
 <div
   className="metar"
-/>
+>
+  <div
+    className="spinner"
+  >
+    Failed
+  </div>
+</div>
 `;
 
 exports[`Metar - failed 2`] = `
 <div
   className="metar"
-/>
+>
+  <div
+    className="spinner"
+  >
+    Failed
+  </div>
+</div>
 `;
 
 exports[`Metar - failed 3`] = `
 <div
   className="metar"
-/>
+>
+  <div
+    className="spinner"
+  >
+    Failed
+  </div>
+</div>
 `;
 
 exports[`Metar - failed 4`] = `
 <div
   className="metar"
-/>
+>
+  <div
+    className="spinner"
+  >
+    Failed
+  </div>
+</div>
 `;
 
 exports[`Metar - fetching 1`] = `

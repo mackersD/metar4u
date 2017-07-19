@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import Vector from '../../components/Vector'
+import Vector from '../Vector'
 
 it('Vector - renders', () => {
   const tree = renderer.create(

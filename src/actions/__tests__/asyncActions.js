@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import * as actions from '../../actions/actions'
+import * as actions from '../actions'
 import * as CONSTANT from '../../util/constants'
 import nock from 'nock'
 
