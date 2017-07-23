@@ -40,8 +40,8 @@ describe('async actions', () => {
       "Wind-Speed": "04",
       "Wind-Variable-Dir": []
     }
-    nock('http://avwx.rest/api/metar/KGTU')
-      .get('')
+    nock('http://avwx.rest')
+      .get('/api/metar/KGTU')
       .reply(200, data)
     const expectedActions = [
       {
@@ -68,8 +68,8 @@ describe('async actions', () => {
     const data = {
       "Error": "Station Lookup Error: METAR not found for KGTU (1)"
     }
-    nock('http://avwx.rest/api/metar/KGTU')
-      .get('')
+    nock('http://avwx.rest')
+      .get('/api/metar/KGTU')
       .reply(200, data)
     const expectedActions = [
       {
@@ -131,8 +131,8 @@ describe('async actions', () => {
       lookup: {
         text: "KGTU"
       },
-      lat: 30.67817,
-      long: -97.67651
+      lat: "30.67817",
+      long: "-97.67651"
     }
 
     const geonameData = {
@@ -158,8 +158,9 @@ describe('async actions', () => {
       ]
     }
 
-    nock('http://api.geonames.org/searchJSON?username=metar4u&q=KGTU')
-      .get('')
+    nock('http://api.geonames.org')
+      .get('/searchJSON')
+      .query({username: 'metar4u', q: 'KGTU'})
       .reply(200, geonameData)
 
     const expectedActions = [
@@ -171,7 +172,7 @@ describe('async actions', () => {
         type: CONSTANT.REQUEST_GEONAMES_SUCCESS,
         lat: opts.lat,
         long: opts.long,
-        json: undefined
+        json: geonameData
       },
       {
         type: CONSTANT.CHANGE_LOCATION,
@@ -204,8 +205,9 @@ describe('async actions', () => {
       "geonames": []
     }
 
-    nock('http://api.geonames.org/searchJSON?username=metar4u&q=KGTUUUU')
-      .get('')
+    nock('http://api.geonames.org')
+      .get('/searchJSON')
+      .query({username: 'metar4u', q: 'KGTUUUU'})
       .reply(200, geonameData)
 
     const expectedActions = [
