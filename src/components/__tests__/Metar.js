@@ -1,22 +1,20 @@
 import React from 'react'
-import Provider from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
 import renderer from 'react-test-renderer'
 import ReactDOM from 'react-dom'
+import thunk from 'redux-thunk'
 import Metar from '../Metar'
 
-const fakeStore = (state) => {
-  return {
-    default: () => {},
-    subscribe: () => {},
-    dispatch: () => {},
-    getState: () => { return Object.assign({},state) }
-  }
-}
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
 describe('Component - Metar', () => {
   it('renders', () => {
     const comp = renderer.create(
-      <Metar store={fakeStore({})} />
+      <Provider store={mockStore({})}>
+              <Metar />
+      </Provider>
     ).toJSON()
 
     expect(comp).toMatchSnapshot()
