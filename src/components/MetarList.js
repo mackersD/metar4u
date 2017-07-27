@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../actions/actions'
 import Metar from './Metar'
-import uuid from 'uuid/v4'
 
 class MetarList extends React.Component {
 

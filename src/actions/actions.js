@@ -1,6 +1,5 @@
 import * as ACTION from '../util/constants'
 import fetch from 'isomorphic-fetch'
-import { getNearestStations } from '../util/stations'
 import encodeurl from 'encodeurl'
 
 export function changeLocation(lat, long) {
