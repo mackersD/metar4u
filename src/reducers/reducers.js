@@ -29,6 +29,7 @@ const defaultMetarState = {
   windDirection: 0,
   windGust: 0,
   windSpeed: 0,
+  windVariableDirection: undefined
 }
 
 const metarList = (state = {
