@@ -13,7 +13,7 @@ describe('async actions', () => {
   })
 
   it('fetch metar - success', () => {
-    Date.now = jest.fn(() => 1482363367071)
+    global.Date = jest.fn(() => "2017-08-06T14:48:52.339Z")
     const data = {
       "Altimeter": "3000",
       "Cloud-List": [],
@@ -52,7 +52,7 @@ describe('async actions', () => {
         type: CONSTANT.REQUEST_METAR_SUCCESS,
         data,
         icao: 'KGTU',
-        updatedAt: Date.now()
+        updatedAt: new Date()
       }
     ]
     const store = mockStore({})
@@ -64,7 +64,7 @@ describe('async actions', () => {
   })
 
   it('fetch metar - failure', () => {
-    Date.now = jest.fn(() => 1482363367071)
+    global.Date = jest.fn(() => "2017-08-06T14:48:52.339Z")
     const data = {
       "Error": "Station Lookup Error: METAR not found for KGTU (1)"
     }
@@ -80,7 +80,7 @@ describe('async actions', () => {
         type: CONSTANT.REQUEST_METAR_FAILURE,
         error: data.Error,
         icao: 'KGTU',
-        updatedAt: Date.now()
+        updatedAt: new Date()
       }
     ]
     const store = mockStore({})
@@ -92,7 +92,7 @@ describe('async actions', () => {
   })
 
   it('fetch location - latlong success', () => {
-    Date.now = jest.fn(() => 1482363367071)
+    global.Date = jest.fn(() => "2017-08-06T14:48:52.339Z")
     const opts = {
       lookup: {
         text: "40 -97"
@@ -116,7 +116,7 @@ describe('async actions', () => {
         type: CONSTANT.CHANGE_LOCATION,
         lat: opts.lat,
         long: opts.long,
-        updatedAt: Date.now()
+        updatedAt: new Date()
       }
     ]
     const store = mockStore({})
@@ -126,7 +126,7 @@ describe('async actions', () => {
   })
 
   it('fetch location - geoname success', () => {
-    Date.now = jest.fn(() => 1482363367071)
+    global.Date = jest.fn(() => "2017-08-06T14:48:52.339Z")
     const opts = {
       lookup: {
         text: "KGTU"
@@ -178,7 +178,7 @@ describe('async actions', () => {
         type: CONSTANT.CHANGE_LOCATION,
         lat: opts.lat,
         long: opts.long,
-        updatedAt: Date.now()
+        updatedAt: new Date()
       }
     ]
 

@@ -8,8 +8,13 @@ import * as actions from '../actions/actions'
 class MetarLookup extends React.Component {
 
   componentDidMount() {
-    getLocation((pos) => {
-      this.props.changeLocation(pos.coords.latitude, pos.coords.longitude)
+    getLocation((data, err) => {
+      if(err) {
+        alert(err)
+      }
+      else {
+        this.props.changeLocation(data.coords.latitude, data.coords.longitude)
+      }
     })
   }
 

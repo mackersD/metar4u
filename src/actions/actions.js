@@ -7,7 +7,7 @@ export function changeLocation(lat, long) {
     type: ACTION.CHANGE_LOCATION,
     lat,
     long,
-    updatedAt: Date.now()
+    updatedAt: new Date()
   }
 }
 
@@ -23,7 +23,7 @@ export function requestMetarSuccess(icao, data) {
     type: ACTION.REQUEST_METAR_SUCCESS,
     data,
     icao,
-    updatedAt: Date.now()
+    updatedAt: new Date()
   }
 }
 
@@ -32,7 +32,7 @@ export function requestMetarFailure(icao, error) {
     type: ACTION.REQUEST_METAR_FAILURE,
     error,
     icao,
-    updatedAt: Date.now()
+    updatedAt: new Date()
   }
 }
 
@@ -134,7 +134,6 @@ function getLatLongFromGeonamesResult(result) {
 
   if(geonames) {
     for(var i = 0; i < geonames.length; i++) {
-      console.log(geonames[i])
       if(geonames[i].lat && geonames[i].lng) {
         latLong.lat = geonames[i].lat
 

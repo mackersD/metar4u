@@ -2,20 +2,33 @@ import * as ACTION from '../util/constants'
 import { combineForms } from 'react-redux-form'
 import { combineReducers } from 'redux'
 import { getNearestStations } from '../util/stations'
+import { normalizeMetarData } from '../util/avwx'
 
 const defaultLookup = {
   text: undefined
 }
 
 const defaultMetarState = {
+  altimeter: 0,
   bearing: undefined,
+  clouds: [],
+  dewpoint: 0,
   distance: undefined,
   error: undefined,
+  flightRules: undefined,
   icao: undefined,
   isFailed: false,
   isFetching: false,
+  name: undefined,
+  remarks: undefined,
   rawReport: undefined,
-  updatedAt: undefined
+  temperature: 0,
+  time: undefined,
+  updatedAt: undefined,
+  visibility: 0,
+  windDirection: 0,
+  windGust: 0,
+  windSpeed: 0,
 }
 
 const metarList = (state = {
@@ -55,8 +68,7 @@ const metar = (state = defaultMetarState, action) => {
       return state
     case ACTION.REQUEST_METAR_SUCCESS:
       if(state.icao === action.icao) {
-        return Object.assign({}, state, {
-          rawReport: action.data["Raw-Report"],
+        return Object.assign({}, state, normalizeMetarData(action.data), {
           isFailed: false,
           isFetching: false,
           updatedAt: action.updatedAt
